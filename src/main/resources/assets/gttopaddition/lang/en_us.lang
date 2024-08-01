@@ -1,0 +1,10 @@
+##  The One Probe
+gtqt.top.item_outputs=Currently producing items:
+gtqt.top.fluid_outputs=Currently producing fluids:
+gtqt.top.getparallelLimit=Parallel limit:
+gtqt.top.temperature=Temperature:
+gtqt.top.face=Facing:
+gtqt.top.in=Max input // Actual input:
+gtqt.top.on=Max output // Actual output:
+gtqt.top.v=Current:
+gtqt.top.i=Voltage:
