@@ -20,6 +20,7 @@ public class GTTAIntegration {
     }
 
 
-    public GTTAIntegration() {}
+    public GTTAIntegration() {
+    }
 }
 

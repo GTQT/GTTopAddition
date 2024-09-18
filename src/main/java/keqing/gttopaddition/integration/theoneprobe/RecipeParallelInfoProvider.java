@@ -20,7 +20,6 @@ public class RecipeParallelInfoProvider extends CapabilityInfoProvider<AbstractR
     }
 
 
-
     @Override
     protected Capability<AbstractRecipeLogic> getCapability() {
         return GregtechTileCapabilities.CAPABILITY_RECIPE_LOGIC;
@@ -28,16 +27,15 @@ public class RecipeParallelInfoProvider extends CapabilityInfoProvider<AbstractR
 
 
     @Override
-    protected void addProbeInfo( AbstractRecipeLogic capability,  IProbeInfo probeInfo,
-                                 EntityPlayer player,  TileEntity tileEntity,
-                                 IProbeHitData data) {
+    protected void addProbeInfo(AbstractRecipeLogic capability, IProbeInfo probeInfo,
+                                EntityPlayer player, TileEntity tileEntity,
+                                IProbeHitData data) {
         if (!capability.isActive()) return;
         int parallel = capability.getParallelLimit();
-        if (parallel==0||parallel==1) return;
+        if (parallel == 0 || parallel == 1) return;
         IProbeInfo horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
         horizontalPane.text(TextStyleClass.INFO + "{*gtqt.top.getparallelLimit*}");
-        horizontalPane.text(TextStyleClass.INFO + "  "+ TextFormatting.BLUE+parallel);
-
+        horizontalPane.text(TextStyleClass.INFO + "  " + TextFormatting.BLUE + parallel);
 
 
     }

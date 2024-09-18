@@ -10,24 +10,26 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-public class MultiblockFaceProvider implements  IProbeInfoProvider {
+import static keqing.gttopaddition.GTTAConfig.enableMultiblockFaceProvider;
 
-        @Override
+public class MultiblockFaceProvider implements IProbeInfoProvider {
+
+    @Override
     public String getID() {
         return "gtqt:face";
     }
 
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, EntityPlayer entityPlayer, World world, IBlockState iBlockState, IProbeHitData iProbeHitData) {
-        if (iBlockState.getBlock().hasTileEntity(iBlockState)&&entityPlayer.isSneaking()) {
+        if (enableMultiblockFaceProvider && iBlockState.getBlock().hasTileEntity(iBlockState) && entityPlayer.isSneaking()) {
             TileEntity te = world.getTileEntity(iProbeHitData.getPos());
             IProbeInfo horizontalPane = iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
             if (te instanceof IGregTechTileEntity) {
                 IGregTechTileEntity ignite = (IGregTechTileEntity) te;
                 MetaTileEntity mte = ignite.getMetaTileEntity();
-                EnumFacing Facing=mte.getFrontFacing();
+                EnumFacing Facing = mte.getFrontFacing();
                 horizontalPane.text(TextStyleClass.INFO + "{*gtqt.top.face*}");
-                horizontalPane.text(TextStyleClass.INFO + " " +TextFormatting.BLUE+Facing+"  ");
+                horizontalPane.text(TextStyleClass.INFO + " " + TextFormatting.BLUE + Facing + "  ");
 
             }
         }
