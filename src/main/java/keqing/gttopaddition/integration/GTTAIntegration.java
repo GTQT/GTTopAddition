@@ -17,6 +17,8 @@ public class GTTAIntegration {
         oneProbe.registerProvider(new RecipeParallelInfoProvider());
         oneProbe.registerProvider(new RecipeItemOutputInfoProvider());
         oneProbe.registerProvider(new RecipeFluidOutputInfoProvider());
+        oneProbe.registerProvider(new MultiblockCLRProvider());
+        oneProbe.registerProvider(new MultiblockPSSProvider());
     }
 
 
