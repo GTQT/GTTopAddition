@@ -19,6 +19,8 @@ public class GTTAIntegration {
         oneProbe.registerProvider(new RecipeFluidOutputInfoProvider());
         oneProbe.registerProvider(new MultiblockCLRProvider());
         oneProbe.registerProvider(new MultiblockPSSProvider());
+        oneProbe.registerProvider(new ComputationProvider());
+        oneProbe.registerProvider(new FusionReactorProvider());
     }
 
 

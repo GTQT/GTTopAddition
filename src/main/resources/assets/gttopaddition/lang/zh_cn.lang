@@ -6,6 +6,7 @@ gtqt.top.temperature=温度：
 gtqt.top.cleanroom=洁净:
 gtqt.top.averageInLastSec=平均输入：
 gtqt.top.averageOutLastSec=平均输出：
+gtqt.top.fusion_reactor.heat=聚变热量：
 gtqt.top.face=面向：
 gtqt.top.in=最大输入//实际输入:
 gtqt.top.on=最大输出//实际输出:

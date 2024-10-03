@@ -6,6 +6,7 @@ gtqt.top.temperature=Temperature:
 gtqt.top.cleanroom=clean:
 gtqt.top.averageInLastSec=Average In Last Sec：
 gtqt.top.averageOutLastSec=Average Out Last Sec：
+gtqt.top.fusion_reactor.heat=Fusion Reactor Heat：
 gtqt.top.face=Facing:
 gtqt.top.in=Max input // Actual input:
 gtqt.top.on=Max output // Actual output:
