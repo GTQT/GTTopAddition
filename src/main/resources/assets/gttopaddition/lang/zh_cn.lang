@@ -12,3 +12,4 @@ gtqt.top.in=最大输入//实际输入:
 gtqt.top.on=最大输出//实际输出:
 gtqt.top.v=电流:
 gtqt.top.i=电压:
+gtqt.top.pipe.energy=平均能流: §a%s EU/t §f(%s§f/%s§f) @ §a%s§f/§a%s A

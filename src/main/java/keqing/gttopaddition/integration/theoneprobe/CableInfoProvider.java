@@ -59,13 +59,7 @@ public class CableInfoProvider implements IProbeInfoProvider {
     }
 
     public int getTrueAm(double A) {
-        if (A <= 4) return 1;
-        if (A <= 16) return 2;
-        if (A <= 64) return 3;
-        if (A <= 256) return 4;
-        if (A <= 1024) return 5;
-        if (A <= 4096) return 6;
-        if (A <= 16384) return 7;
-        return 1;
+        return (int) Math.ceil(Math.log(A + 1) / Math.log(4));
     }
+
 }
