@@ -12,3 +12,5 @@ gtqt.top.in=Max input // Actual input:
 gtqt.top.on=Max output // Actual output:
 gtqt.top.v=Current:
 gtqt.top.i=Voltage:
+gtqt.top.pipe.energy=Average Energy: §a%s EU/t §f(%s§f/%s§f) @ §a%s§f/§a%s A
+gtqt.top.pss.details=Details：

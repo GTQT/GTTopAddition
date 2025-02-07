@@ -52,7 +52,7 @@ public class MultiblockPSSProvider implements IProbeInfoProvider {
                     // Fill Percentage Text
                     ITextComponent percent = TextComponentUtil.translationWithColor(
                             TextFormatting.WHITE,
-                            "gttopadditionextended.pss.details",
+                            "gtqt.top.pss.details",
                             TextComponentUtil.stringWithColor(
                                     TextFormatting.GREEN,
                                     String.format("%.3f", 100 *
