@@ -37,11 +37,11 @@ public class MultiblockPSSProvider implements IProbeInfoProvider {
             TileEntity tileEntity = world.getTileEntity(data.getPos());
             if (tileEntity instanceof IGregTechTileEntity) {
                 MetaTileEntity metaTileEntity = ((IGregTechTileEntity) tileEntity).getMetaTileEntity();
-                if (metaTileEntity instanceof MetaTileEntityPowerSubstation &&
-                        ((MetaTileEntityPowerSubstation) metaTileEntity).isStructureFormed()) {
+                if (metaTileEntity instanceof MetaTileEntityPowerSubstation metaTileEntityPowerSubstation&&
+                        metaTileEntityPowerSubstation.isStructureFormed()) {
                     // Fill Percentage Line
-                    BigInteger stored = castToBI(((MetaTileEntityPowerSubstation) metaTileEntity).getStored());
-                    BigInteger capacity = castToBI(((MetaTileEntityPowerSubstation) metaTileEntity).getCapacity());
+                    BigInteger stored = castToBI(metaTileEntityPowerSubstation.getStored());
+                    BigInteger capacity = castToBI(metaTileEntityPowerSubstation.getCapacity());
 
                     info.progress(percentage(stored, capacity).intValue(), 100, info.defaultProgressStyle()
                             .suffix(" / " + ElementProgress.format(100, NumberFormat.FULL, " %"))
@@ -55,8 +55,7 @@ public class MultiblockPSSProvider implements IProbeInfoProvider {
                             "gtqt.top.pss.details",
                             TextComponentUtil.stringWithColor(
                                     TextFormatting.GREEN,
-                                    String.format("%.3f", 100 *
-                                            (((MetaTileEntityPowerSubstation) metaTileEntity).getFillPercentage(1))) +
+                                    String.format("%.3f", 100 * getFillPercentage(metaTileEntityPowerSubstation)) +
                                             "%"));
                     info.text(percent.getFormattedText());
 
@@ -64,9 +63,9 @@ public class MultiblockPSSProvider implements IProbeInfoProvider {
                     addStoredAndCapacityLines(info, metaTileEntity, stored, capacity);
 
                     // IO Line
-                    long in = ((MetaTileEntityPowerSubstation) metaTileEntity).getAverageInLastSec();
-                    long out = ((MetaTileEntityPowerSubstation) metaTileEntity).getAverageOutLastSec();
-                    long passive = ((MetaTileEntityPowerSubstation) metaTileEntity).getPassiveDrain();
+                    long in = metaTileEntityPowerSubstation.getAverageInLastSec();
+                    long out = metaTileEntityPowerSubstation.getAverageOutLastSec();
+                    long passive = metaTileEntityPowerSubstation.getPassiveDrain();
                     long io = in - out;
 
                     String ioText = (io > 0 ? TextFormatting.GREEN : TextFormatting.RED) +
@@ -85,6 +84,10 @@ public class MultiblockPSSProvider implements IProbeInfoProvider {
                 }
             }
         }
+    }
+
+    private double getFillPercentage(MetaTileEntityPowerSubstation metaTileEntity) {
+        return (double) metaTileEntity.getStoredLong() /metaTileEntity.getCapacityLong();
     }
 
     private void addStoredAndCapacityLines(IProbeInfo info, MetaTileEntity metaTileEntity, BigInteger stored, BigInteger capacity) {
