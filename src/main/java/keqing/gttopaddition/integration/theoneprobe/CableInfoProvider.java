@@ -19,8 +19,7 @@ public class CableInfoProvider implements IProbeInfoProvider {
 
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, EntityPlayer entityPlayer, World world, IBlockState iBlockState, IProbeHitData iProbeHitData) {
-        if (world.getTileEntity(iProbeHitData.getPos()) instanceof TileEntityCable) {
-            TileEntityCable s = (TileEntityCable) world.getTileEntity(iProbeHitData.getPos());
+        if (world.getTileEntity(iProbeHitData.getPos()) instanceof TileEntityCable s) {
             double EUt = s.getAverageVoltage();
             double EUm = s.getMaxVoltage();
 
@@ -34,7 +33,7 @@ public class CableInfoProvider implements IProbeInfoProvider {
                         .alternateFilledColor(0xFFEEE600)
                         .borderColor(0xFF555555).numberFormat(NumberFormat.COMMAS));
 
-
+                if(EUt==0||It==0)return;
                 iProbeInfo.text("{*gtqt.top.i*}" + TextFormatting.RED + " " + TextFormatting.GOLD + EUt / getTrueAm(It) + TextFormatting.BOLD + "/" + TextFormatting.RED + EUm +
                         " EU" + TextFormatting.GREEN +
                         " (" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUt / getTrueAm(It))] + TextFormatting.GRAY + "/" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GREEN + ")");
@@ -47,6 +46,7 @@ public class CableInfoProvider implements IProbeInfoProvider {
                         .alternateFilledColor(0xFFEEE600)
                         .borderColor(0xFF555555).numberFormat(NumberFormat.COMMAS));
 
+                if(EUt==0||It==0)return;
                 iProbeInfo.text("{*gtqt.top.i*}" + TextFormatting.RED + " " + TextFormatting.GOLD + EUm + TextFormatting.BOLD + "/" + TextFormatting.RED + EUm +
                         " EU" + TextFormatting.GREEN +
                         " (" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GRAY + "/" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GREEN + ")");
