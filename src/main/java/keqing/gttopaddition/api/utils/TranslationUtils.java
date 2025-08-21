@@ -5,7 +5,9 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.IllegalFormatException;
-
+/*
+ * From : https://github.com/Supernoobv/GregicProbeCEu/blob/master/src/main/java/vfyjxf/gregicprobe/util/TranslationUtils.java
+ */
 public class TranslationUtils {
 
     public static String translate(String key, Object... params) {

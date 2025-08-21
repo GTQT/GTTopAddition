@@ -12,7 +12,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
-
+/*
+ * From : https://github.com/Supernoobv/GregicProbeCEu/blob/master/src/main/java/vfyjxf/gregicprobe/element/FluidNameElement.java
+ */
 public class FluidNameElement implements IElement {
 
     private final String fluidName;

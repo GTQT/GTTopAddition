@@ -6,7 +6,9 @@ import keqing.gttopaddition.integration.theoneprobe.RecipeOutputInfoProvider;
 import mcjty.theoneprobe.api.IItemStyle;
 import mcjty.theoneprobe.apiimpl.elements.ElementItemStack;
 import net.minecraft.item.ItemStack;
-
+/*
+ * From : https://github.com/Supernoobv/GregicProbeCEu/blob/master/src/main/java/vfyjxf/gregicprobe/element/ChancedItemStackElement.java
+ */
 public class ChancedItemStackElement extends ElementItemStack {
 
     private final int chance;

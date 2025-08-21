@@ -4,7 +4,9 @@ import io.netty.buffer.ByteBuf;
 import keqing.gttopaddition.integration.GTTAIntegration;
 import keqing.gttopaddition.integration.theoneprobe.RecipeOutputInfoProvider;
 import net.minecraftforge.fluids.FluidStack;
-
+/*
+ * From : https://github.com/Supernoobv/GregicProbeCEu/blob/master/src/main/java/vfyjxf/gregicprobe/element/ChancedFluidNameElement.java
+ */
 public class ChancedFluidNameElement extends FluidNameElement {
     private final int chance;
 

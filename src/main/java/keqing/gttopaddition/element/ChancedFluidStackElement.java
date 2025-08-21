@@ -6,7 +6,9 @@ import keqing.gttopaddition.integration.theoneprobe.RecipeOutputInfoProvider;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
-
+/*
+ * From : https://github.com/Supernoobv/GregicProbeCEu/blob/master/src/main/java/vfyjxf/gregicprobe/element/ChancedFluidStackElement.java
+ */
 public class ChancedFluidStackElement extends FluidStackElement {
     private final int chance;
 
