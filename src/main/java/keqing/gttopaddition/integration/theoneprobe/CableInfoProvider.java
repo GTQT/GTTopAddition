@@ -5,6 +5,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.TextFormattingUtil;
 import gregtech.common.pipelike.cable.tile.TileEntityCable;
 import mcjty.theoneprobe.api.*;
+import mcjty.theoneprobe.apiimpl.elements.ElementProgress;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
@@ -26,40 +27,40 @@ public class CableInfoProvider implements IProbeInfoProvider {
             double It = s.getAverageAmperage();
             double Im = s.getMaxAmperage();
 
-            if (EUt <= EUm) {
-                iProbeInfo.progress((int) (EUt * It / getTrueAm(It)), (int) (EUm * Im), iProbeInfo.defaultProgressStyle()
-                        .suffix(" / " + TextFormattingUtil.formatNumbers(EUm * Im) + " W")
-                        .filledColor(0xFFEEE600)
-                        .alternateFilledColor(0xFFEEE600)
-                        .borderColor(0xFF555555).numberFormat(NumberFormat.COMMAS));
+            String currentAmperage = TextFormattingUtil.formatNumbers(It);
+            String currentMaxAmperage = TextFormattingUtil.formatNumbers(Im);
 
-                if(EUt==0||It==0)return;
-                iProbeInfo.text("{*gtqt.top.i*}" + TextFormatting.RED + " " + TextFormatting.GOLD + EUt / getTrueAm(It) + TextFormatting.BOLD + "/" + TextFormatting.RED + EUm +
-                        " EU" + TextFormatting.GREEN +
-                        " (" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUt / getTrueAm(It))] + TextFormatting.GRAY + "/" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GREEN + ")");
+            String currentTier = GTValues.VNF[GTUtility.getTierByVoltage((long) EUt)];
+            String maxTier = GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)];
 
-                iProbeInfo.text("{*gtqt.top.v*}" + " " + TextFormatting.YELLOW + It + TextFormatting.BOLD + "/" + TextFormatting.RED + Im + TextFormatting.LIGHT_PURPLE + " A");
-            } else {
-                iProbeInfo.progress((int) (EUm * It), (int) (EUm * Im), iProbeInfo.defaultProgressStyle()
-                        .suffix(" / " + TextFormattingUtil.formatNumbers(EUm * Im) + " W")
-                        .filledColor(0xFFEEE600)
-                        .alternateFilledColor(0xFFEEE600)
-                        .borderColor(0xFF555555).numberFormat(NumberFormat.COMMAS));
 
-                if(EUt==0||It==0)return;
-                iProbeInfo.text("{*gtqt.top.i*}" + TextFormatting.RED + " " + TextFormatting.GOLD + EUm + TextFormatting.BOLD + "/" + TextFormatting.RED + EUm +
-                        " EU" + TextFormatting.GREEN +
-                        " (" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GRAY + "/" + GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)] + TextFormatting.GREEN + ")");
+            iProbeInfo.progress((int) (EUt * It), (int) (EUm * Im), iProbeInfo.defaultProgressStyle()
+                    .numberFormat(entityPlayer.isSneaking() || EUt * It < 10000 ?
+                            NumberFormat.COMMAS :
+                            NumberFormat.COMPACT)
+                    .suffix(" / " + (entityPlayer.isSneaking() || EUm * Im < 10000 ?
+                            ElementProgress.format((long) (EUm * Im), NumberFormat.COMMAS, " W") :
+                            ElementProgress.format((long) (EUm * Im), NumberFormat.COMPACT, "W")))
+                    .filledColor(0xFFEEE600)
+                    .alternateFilledColor(0xFFEEE600)
+                    .borderColor(0xFF555555));
 
-                iProbeInfo.text("{*gtqt.top.v*}" + " " + TextFormatting.YELLOW + It + TextFormatting.BOLD + "/" + TextFormatting.RED + Im + TextFormatting.LIGHT_PURPLE + " A");
+            iProbeInfo.text("{*gtqt.top.v*}" + " " +
+                    TextFormatting.AQUA + EUt +
+                    TextFormatting.WHITE + TextFormatting.BOLD + "/" +
+                    TextFormatting.GOLD + EUm +
+                    TextFormatting.RED + " EU" +
+                    TextFormatting.DARK_GRAY +
+                    " (" +  currentTier +
+                    TextFormatting.DARK_GRAY + "/" +
+                    maxTier +
+                    TextFormatting.DARK_GRAY + ")");
 
-            }
-
+            iProbeInfo.text("{*gtqt.top.i*}" + " " +
+                    TextFormatting.AQUA + currentAmperage +
+                    TextFormatting.WHITE + TextFormatting.BOLD + "/" +
+                    TextFormatting.GOLD + currentMaxAmperage +
+                    TextFormatting.RED + " A");
         }
     }
-
-    public int getTrueAm(double A) {
-        return (int) Math.ceil(Math.log(A + 1) / Math.log(4));
-    }
-
 }

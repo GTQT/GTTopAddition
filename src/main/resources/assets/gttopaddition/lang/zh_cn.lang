@@ -1,6 +1,5 @@
 ##  The One Probe
-gtqt.top.item_outputs=正在生产物品：
-gtqt.top.fluid_outputs=正在生产流体：
+gtqt.top.outputs=正在加工:
 gtqt.top.getparallelLimit=并行：
 gtqt.top.temperature=温度：
 gtqt.top.cleanroom=洁净:
@@ -8,9 +7,7 @@ gtqt.top.averageInLastSec=平均输入：
 gtqt.top.averageOutLastSec=平均输出：
 gtqt.top.fusion_reactor.heat=聚变热量：
 gtqt.top.face=面向：
-gtqt.top.in=最大输入//实际输入:
-gtqt.top.on=最大输出//实际输出:
-gtqt.top.v=电流:
-gtqt.top.i=电压:
+gtqt.top.i=电流:
+gtqt.top.v=电压:
 gtqt.top.pipe.energy=平均能流: §a%s EU/t §f(%s§f/%s§f) @ §a%s§f/§a%s A
 gtqt.top.pss.details=详细信息：

@@ -156,8 +156,8 @@ dependencies {
     implementation rfg.deobf(files("libs/theoneprobe-1.12-1.4.28.jar"))
     implementation rfg.deobf("curse.maven:ae2-fluid-crafting-rework-623955:5751930") // AE2FC 2.6.6
     implementation rfg.deobf("curse.maven:ae2-extended-life-570458:6302098") // AE2FC 2.6.6
-    implementation rfg.deobf(files("libs/gregtech-1.12.2-2.9.0-MeowmelMuku.jar"))
-    implementation rfg.deobf(files("libs/GregicalityMultiblocks-1.8.0-MeowmelMuku.jar"))
+    implementation rfg.deobf(files("libs/gregtech-MeowmelMuku-1.12.2-2.9.0-184.jar"))
+    implementation rfg.deobf(files("libs/GregicalityMultiblocks-MeowmelMuku-1.8.4.jar"))
 
 }
 

@@ -1,6 +1,5 @@
 ##  The One Probe
-gtqt.top.item_outputs=Currently producing items:
-gtqt.top.fluid_outputs=Currently producing fluids:
+gtqt.top.outputs=正在加工:
 gtqt.top.getparallelLimit=Parallel limit:
 gtqt.top.temperature=Temperature:
 gtqt.top.cleanroom=clean:
@@ -8,9 +7,7 @@ gtqt.top.averageInLastSec=Average In Last Sec：
 gtqt.top.averageOutLastSec=Average Out Last Sec：
 gtqt.top.fusion_reactor.heat=Fusion Reactor Heat：
 gtqt.top.face=Facing:
-gtqt.top.in=Max input // Actual input:
-gtqt.top.on=Max output // Actual output:
-gtqt.top.v=Current:
-gtqt.top.i=Voltage:
+gtqt.top.i=Amperage:
+gtqt.top.v=Voltage:
 gtqt.top.pipe.energy=Average Energy: §a%s EU/t §f(%s§f/%s§f) @ §a%s§f/§a%s A
 gtqt.top.pss.details=Details：

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
         name = "GTTOPAddition",
         acceptedMinecraftVersions = "[1.12.2,1.13)",
         version = "0.0.1-beta",
-        dependencies = "required-after:gregtech@[2.8.0-beta,);"
+        dependencies = "required-after:gregtech;required-after:theoneprobe"
 )
 public class GTTOPAddition {
     public static final String PACK = "1.0.1";

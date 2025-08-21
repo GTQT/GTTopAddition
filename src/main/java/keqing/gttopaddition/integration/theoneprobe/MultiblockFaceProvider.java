@@ -2,6 +2,7 @@ package keqing.gttopaddition.integration.theoneprobe;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import keqing.gttopaddition.GTTAConfig;
 import mcjty.theoneprobe.api.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +22,7 @@ public class MultiblockFaceProvider implements IProbeInfoProvider {
 
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, EntityPlayer entityPlayer, World world, IBlockState iBlockState, IProbeHitData iProbeHitData) {
-        if (enableMultiblockFaceProvider && iBlockState.getBlock().hasTileEntity(iBlockState) && entityPlayer.isSneaking()) {
+        if (GTTAConfig.enableMultiblockFaceProvider && iBlockState.getBlock().hasTileEntity(iBlockState) && entityPlayer.isSneaking()) {
             TileEntity te = world.getTileEntity(iProbeHitData.getPos());
             IProbeInfo horizontalPane = iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
             if (te instanceof IGregTechTileEntity) {
