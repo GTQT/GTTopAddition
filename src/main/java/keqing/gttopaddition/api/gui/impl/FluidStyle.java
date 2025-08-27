@@ -11,8 +11,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class FluidStyle implements IFluidStyle {
 
-    private int width = 20;
-    private int height = 20;
+    private int width = 16;
+    private int height = 16;
 
     public IFluidStyle copy() {
         return new FluidStyle().bounds(this.width, this.height);

@@ -66,7 +66,7 @@ public class FluidNameElement implements IElement {
 
     public String getTranslated() {
         if (showLang)
-            return TranslationUtils.translate("gregicprobe.top.top_override.fluid", translatedName);
+            return TranslationUtils.translate("gtqt.top.top_override.fluid", translatedName);
         else
             return translatedName;
     }

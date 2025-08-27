@@ -1,6 +1,7 @@
 package keqing.gttopaddition.element;
 
 import io.netty.buffer.ByteBuf;
+import keqing.gttopaddition.api.gui.impl.FluidStyle;
 import keqing.gttopaddition.integration.GTTAIntegration;
 import keqing.gttopaddition.integration.theoneprobe.RecipeOutputInfoProvider;
 import net.minecraftforge.fluids.FluidStack;
@@ -13,7 +14,7 @@ public class ChancedFluidStackElement extends FluidStackElement {
     private final int chance;
 
     public ChancedFluidStackElement(@Nonnull FluidStack stack, int chance) {
-        super(stack);
+        super(stack,new FluidStyle());
         this.chance = chance;
     }
 

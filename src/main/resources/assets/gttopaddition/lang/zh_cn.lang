@@ -1,5 +1,6 @@
 ##  The One Probe
 gtqt.top.outputs=正在加工:
+gtqt.top.top_override.fluid=流体: %s
 gtqt.top.getparallelLimit=并行：
 gtqt.top.temperature=温度：
 gtqt.top.cleanroom=洁净:

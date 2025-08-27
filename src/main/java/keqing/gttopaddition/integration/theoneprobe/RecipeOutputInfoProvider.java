@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import gregtech.api.capability.impl.AccessorAbstractRecipeLogic;
 import keqing.gttopaddition.GTTAConfig;
+import keqing.gttopaddition.api.gui.impl.FluidStyle;
 import keqing.gttopaddition.api.utils.ItemMeta;
 import keqing.gttopaddition.api.utils.TranslationUtils;
 import keqing.gttopaddition.element.*;
@@ -163,7 +164,7 @@ public class RecipeOutputInfoProvider extends CapabilityInfoProvider<IWorkable> 
 
         for (var output : fluidOutputs.entrySet()) {
             FluidStack stack = new FluidStack(output.getKey(), output.getValue());
-            fluids.add(Pair.of(new FluidNameElement(stack, false), new FluidStackElement(stack)));
+            fluids.add(Pair.of(new FluidNameElement(stack, false), new FluidStackElement(stack,new FluidStyle())));
         }
 
         for (var chanced : chancedFluidOutputs.entrySet()) {

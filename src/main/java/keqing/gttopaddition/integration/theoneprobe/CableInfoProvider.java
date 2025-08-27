@@ -27,26 +27,30 @@ public class CableInfoProvider implements IProbeInfoProvider {
             double It = s.getAverageAmperage();
             double Im = s.getMaxAmperage();
 
+            // 计算实际功率：使用导线上的实际电压（不超过最大额定电压）乘以平均电流
+            double actualVoltage = Math.min(EUt, EUm);
+            double currentPower = actualVoltage * It;
+            double maxPower = EUm * Im;
+
             String currentAmperage = TextFormattingUtil.formatNumbers(It);
             String currentMaxAmperage = TextFormattingUtil.formatNumbers(Im);
 
-            String currentTier = GTValues.VNF[GTUtility.getTierByVoltage((long) EUt)];
+            String currentTier = GTValues.VNF[GTUtility.getTierByVoltage((long) actualVoltage)];
             String maxTier = GTValues.VNF[GTUtility.getTierByVoltage((long) EUm)];
 
-
-            iProbeInfo.progress((int) (EUt * It), (int) (EUm * Im), iProbeInfo.defaultProgressStyle()
-                    .numberFormat(entityPlayer.isSneaking() || EUt * It < 10000 ?
+            iProbeInfo.progress((int) currentPower, (int) maxPower, iProbeInfo.defaultProgressStyle()
+                    .numberFormat(entityPlayer.isSneaking() || currentPower < 10000 ?
                             NumberFormat.COMMAS :
                             NumberFormat.COMPACT)
-                    .suffix(" / " + (entityPlayer.isSneaking() || EUm * Im < 10000 ?
-                            ElementProgress.format((long) (EUm * Im), NumberFormat.COMMAS, " W") :
-                            ElementProgress.format((long) (EUm * Im), NumberFormat.COMPACT, "W")))
+                    .suffix(" / " + (entityPlayer.isSneaking() || maxPower < 10000 ?
+                            ElementProgress.format((long) maxPower, NumberFormat.COMMAS, " W") :
+                            ElementProgress.format((long) maxPower, NumberFormat.COMPACT, "W")))
                     .filledColor(0xFFEEE600)
                     .alternateFilledColor(0xFFEEE600)
                     .borderColor(0xFF555555));
 
             iProbeInfo.text("{*gtqt.top.v*}" + " " +
-                    TextFormatting.AQUA + EUt +
+                    TextFormatting.AQUA + actualVoltage +
                     TextFormatting.WHITE + TextFormatting.BOLD + "/" +
                     TextFormatting.GOLD + EUm +
                     TextFormatting.RED + " EU" +
