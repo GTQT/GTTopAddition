@@ -149,15 +149,16 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     api("com.cleanroommc:groovyscript:1.2.0-hotfix1") { transitive = false }
-    api("com.cleanroommc:modularui:2.5.0-rc4") { transitive = false }
+    api("com.cleanroommc:modularui:3.0.4") { transitive = false }
+    api("curse.maven:inventory-bogosorter-632327:7102721-deobf-6717233-sources-6717234") // Inventory BogoSorter − v1.5.0
+    api("curse.maven:key-binding-patch-928895:5951859") // Key Binding Patch v1.3.3.3, needed by Inventory BogoSorter v1.5.0+
     implementation rfg.deobf("curse.maven:code-chicken-lib-1-8-242818:2779848")
-    implementation rfg.deobf(files("libs/!mixinbooter-8.9.jar"))
+    implementation rfg.deobf("curse.maven:mixin-booter-419286:6344449")
     implementation rfg.deobf(files("libs/jei_1.12.2-4.16.1.1003.jar"))
-    implementation rfg.deobf(files("libs/theoneprobe-1.12-1.4.28.jar"))
+    implementation rfg.deobf('curse.maven:the-one-probe-community-edition-885670:7129885') // TOP 1.4.28
     implementation rfg.deobf("curse.maven:ae2-fluid-crafting-rework-623955:5751930") // AE2FC 2.6.6
     implementation rfg.deobf("curse.maven:ae2-extended-life-570458:6302098") // AE2FC 2.6.6
-    implementation rfg.deobf(files("libs/gregtech-MeowmelMuku-1.12.2-2.9.0-184.jar"))
-    implementation rfg.deobf(files("libs/GregicalityMultiblocks-MeowmelMuku-1.8.4.jar"))
+    implementation rfg.deobf(files("libs/gregtech-MeowmelMuku-1.12.2-2.9.0-190.jar"))
 
 }
 

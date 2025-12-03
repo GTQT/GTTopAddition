@@ -20,7 +20,6 @@ public class GTTAIntegration {
         oneProbe.registerProvider(new MultiblockFaceProvider());
         oneProbe.registerProvider(new CableInfoProvider());
         oneProbe.registerProvider(new RecipeOutputInfoProvider());
-        oneProbe.registerProvider(new MultiblockTemperatureProvider());
         oneProbe.registerProvider(new RecipeParallelInfoProvider());
         oneProbe.registerProvider(new MultiblockCLRProvider());
         oneProbe.registerProvider(new MultiblockPSSProvider());
