@@ -5,6 +5,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,16 @@ public class EarlyMixin implements IEarlyMixinLoader, IFMLLoadingPlugin {
 
     @Override
     public List<String> getMixinConfigs() {
-        return Collections.singletonList("mixins.gttopaddition_early.json");
+        List<String> configs = new ArrayList<>();
+
+        configs.add("mixins.gttopaddition_early.json");
+
+        return configs;
     }
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[0];
+        return null;
     }
 
     @Override
@@ -40,5 +45,10 @@ public class EarlyMixin implements IEarlyMixinLoader, IFMLLoadingPlugin {
     @Override
     public String getAccessTransformerClass() {
         return null;
+    }
+
+    @Override
+    public boolean shouldMixinConfigQueue(String mixinConfig) {
+        return IEarlyMixinLoader.super.shouldMixinConfigQueue(mixinConfig);
     }
 }
