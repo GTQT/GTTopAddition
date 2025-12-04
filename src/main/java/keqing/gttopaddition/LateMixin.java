@@ -1,6 +1,5 @@
 package keqing.gttopaddition;
 
-import net.minecraftforge.fml.common.Loader;
 import zone.rong.mixinbooter.ILateMixinLoader;
 
 import java.util.Collections;

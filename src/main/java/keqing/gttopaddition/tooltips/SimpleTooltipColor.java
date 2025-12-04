@@ -1,5 +1,6 @@
-package keqing.gttopaddition;
+package keqing.gttopaddition.tooltips;
 
+import keqing.gttopaddition.GTTAConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,10 +30,10 @@ public class SimpleTooltipColor {
         // 稀有度颜色映射 - 保持与Minecraft原版一致
         public static int getRarityColor(net.minecraft.item.EnumRarity rarity) {
             return switch (rarity) {
-                case UNCOMMON -> 0xFF55FF55;  // 绿色
-                case RARE -> 0xFF5555FF;      // 蓝色
-                case EPIC -> 0xFFAA00AA;      // 紫色
-                default -> BORDER_COLOR;      // 其他情况使用默认边框颜色
+                case COMMON -> BORDER_COLOR;
+                case UNCOMMON -> 0xFFFFFF55;
+                case RARE -> 0xFF5555FF;
+                case EPIC -> 0xFFAA00AA;
             };
         }
     }
