@@ -1,7 +1,8 @@
 package keqing.gttopaddition.mixins;
+
 import keqing.gttopaddition.GTTAConfig;
-import org.apache.commons.lang3.tuple.Pair;
 import mcjty.theoneprobe.gui.GuiConfig;
+import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

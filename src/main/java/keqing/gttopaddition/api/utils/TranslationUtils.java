@@ -1,6 +1,7 @@
 package keqing.gttopaddition.api.utils;
 
 import mcjty.theoneprobe.api.IProbeInfo;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -38,6 +39,12 @@ public class TranslationUtils {
         } catch (Exception e) {
             return key;
         }
+    }
+
+    public static String getTableBarNameByItemStack(ItemStack stack){
+        if(stack.getItem().getCreativeTab()==null)return  "";
+        String tabelBar= "itemGroup."+stack.getItem().getCreativeTab().tabLabel;
+        return  net.minecraft.client.resources.I18n.format(tabelBar);
     }
 
     public static String topTranslate(String key) {
