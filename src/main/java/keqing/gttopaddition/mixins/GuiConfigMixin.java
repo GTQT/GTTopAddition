@@ -1,4 +1,5 @@
 package keqing.gttopaddition.mixins;
+import keqing.gttopaddition.GTTAConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import mcjty.theoneprobe.gui.GuiConfig;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 
 @Mixin(GuiConfig.class)
@@ -32,13 +32,22 @@ public class GuiConfigMixin {
             constructor.setAccessible(true);
 
             // 创建 Preset 实例
-            Object customPreset = constructor.newInstance(
+            Object jade = constructor.newInstance(
                     "Jade Style",     // 主题名称
-                    0xFF4b4b4b,        // 深灰色（接近黑色）边框 - Slate Gray (ARGB: 255, 47, 79, 79)
-                    0x881f1f1f,        // 淡灰色半透明填充 (ARGB: 136, 224, 224, 224)
-                    1,                 // 边框厚度
-                    1,                 // 边框偏移 (根据您的要求设为0)
-                    new Pair[0]        // 空的样式对数组
+                    0xFF4b4b4b,
+                    0x881f1f1f,
+                    1,
+                    1,
+                    new Pair[0]
+            );
+
+            Object custom = constructor.newInstance(
+                    "Custom Style",     // 主题名称
+                    GTTAConfig.top_custom.borderColor,
+                    GTTAConfig.top_custom.fillColor,
+                    GTTAConfig.top_custom.thickness,
+                    GTTAConfig.top_custom.offset,
+                    new Pair[0]
             );
 
             // 获取 presets 字段并添加自定义预设
@@ -48,9 +57,10 @@ public class GuiConfigMixin {
             // 注意：这里需要处理泛型类型，但可以通过原始类型操作
             @SuppressWarnings("unchecked")
             List<Object> presets = (List<Object>) presetsField.get(null);
-            presets.add(customPreset);
+            presets.add(jade);
+            presets.add(custom);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
