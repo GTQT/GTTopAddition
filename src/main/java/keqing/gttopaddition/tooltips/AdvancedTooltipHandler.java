@@ -20,14 +20,12 @@ import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class AdvancedTooltipHandler {
 
-    // 原版tooltip最大宽度 (175 pixels)
+    // 原版tooltip最大宽度
     private static final int TOOLTIP_MAX_WIDTH = 225;
     // 图标区域宽度 (包括边距)
     private static final int ICON_AREA_WIDTH = 26;
@@ -36,12 +34,11 @@ public class AdvancedTooltipHandler {
     private static final int MOUSE_OFFSET_Y = 4;
     // 分页功能常量
     private static final int PAGINATION_HINT_COLOR = 0xFFAAAAAA; // 灰色提示文本
-    // 页码状态存储
-    private static final Map<String, Integer> tooltipPageStates = new HashMap<>();
+    // 当前物品状态
+    private static String currentItemId = null;
+    private static int currentPage = 0;
     // 按键状态跟踪
-    private static final Map<String, KeyState> keyStates = new HashMap<>();
-    private static final int PAGE_STATE_CLEANUP_INTERVAL = 100; // 每100帧清理一次
-    private static int frameCounter = 0;
+    private static KeyState currentKeyState = new KeyState();
 
     // 按键状态类
     private static class KeyState {
@@ -108,18 +105,19 @@ public class AdvancedTooltipHandler {
 
         event.setCanceled(true);
         renderCustomTooltip(event);
-
-        // 每隔一定帧数清理一次旧的状态
-        frameCounter++;
-        if (frameCounter >= PAGE_STATE_CLEANUP_INTERVAL) {
-            cleanupPageStates();
-            frameCounter = 0;
-        }
     }
 
     private void renderCustomTooltip(RenderTooltipEvent.Pre event) {
         ItemStack stack = event.getStack();
         String itemId = getItemUniqueId(stack);
+
+        // 检查物品是否切换
+        if (!itemId.equals(currentItemId)) {
+            // 物品切换，重置状态
+            currentItemId = itemId;
+            currentPage = 0;
+            currentKeyState = new KeyState();
+        }
 
         TooltipContent rawContent = extractTooltipContent(event.getLines(), stack);
         FontRenderer font = event.getFontRenderer();
@@ -134,8 +132,8 @@ public class AdvancedTooltipHandler {
                 wrappedLines
         );
 
-        // 计算分页信息，传入物品唯一ID
-        calculatePagination(content, event.getScreenHeight(), itemId);
+        // 计算分页信息
+        calculatePagination(content, event.getScreenHeight());
 
         TooltipLayout layout = calculateLayout(content, event);
         TooltipColors colors = getTooltipColors(stack);
@@ -169,19 +167,6 @@ public class AdvancedTooltipHandler {
     }
 
     /**
-     * 清理长期未使用的页码状态
-     */
-    private void cleanupPageStates() {
-        // 保留最近使用的状态，移除旧的状态
-        if (tooltipPageStates.size() > 50) {
-            tooltipPageStates.clear();
-        }
-        if (keyStates.size() > 50) {
-            keyStates.clear();
-        }
-    }
-
-    /**
      * 应用原版自动换行逻辑
      */
     private List<String> wrapTooltipText(List<String> lines, FontRenderer font) {
@@ -194,7 +179,7 @@ public class AdvancedTooltipHandler {
     }
 
     // ========== 分页功能 ==========
-    private void calculatePagination(TooltipContent content, int screenHeight, String itemId) {
+    private void calculatePagination(TooltipContent content, int screenHeight) {
         // 计算固定部分高度（物品名称+模组名称+分割线）
         int fixedLineCount = 2; // 物品名称 + 分割线
         if (content.modName != null) fixedLineCount++; // 模组名称
@@ -229,16 +214,9 @@ public class AdvancedTooltipHandler {
         content.needsPagination = true;
         content.totalPages = (int) Math.ceil((double) content.remainingLines.size() / maxLinesPerPage);
 
-        // 从状态存储中获取当前页码
-        Integer savedPage = tooltipPageStates.get(itemId);
-        if (savedPage != null) {
-            content.currentPage = Math.min(savedPage, content.totalPages - 1);
-        } else {
-            content.currentPage = 0; // 默认第一页
-        }
+        // 使用当前物品的页码
+        content.currentPage = Math.min(currentPage, content.totalPages - 1);
 
-        // 获取或创建按键状态
-        KeyState keyState = keyStates.computeIfAbsent(itemId, k -> new KeyState());
         long currentTime = System.currentTimeMillis();
 
         // 获取当前按键状态
@@ -247,30 +225,30 @@ public class AdvancedTooltipHandler {
         boolean zDown = Keyboard.isKeyDown(Keyboard.KEY_Z);
 
         // 检测按键按下事件（从释放到按下）
-        boolean ctrlPressedThisFrame = ctrlDown && !keyState.wasCtrlPressed;
-        boolean cPressedThisFrame = cDown && !keyState.wasCPressed;
-        boolean zPressedThisFrame = zDown && !keyState.wasZPressed;
+        boolean ctrlPressedThisFrame = ctrlDown && !currentKeyState.wasCtrlPressed;
+        boolean cPressedThisFrame = cDown && !currentKeyState.wasCPressed;
+        boolean zPressedThisFrame = zDown && !currentKeyState.wasZPressed;
 
         // 更新按键状态
-        keyState.wasCtrlPressed = ctrlDown;
-        keyState.wasCPressed = cDown;
-        keyState.wasZPressed = zDown;
+        currentKeyState.wasCtrlPressed = ctrlDown;
+        currentKeyState.wasCPressed = cDown;
+        currentKeyState.wasZPressed = zDown;
 
         // 检查是否可以切换页面（需要间隔时间）
-        boolean canSwitch = (currentTime - keyState.lastSwitchTime) > KeyState.MIN_SWITCH_INTERVAL;
+        boolean canSwitch = (currentTime - currentKeyState.lastSwitchTime) > KeyState.MIN_SWITCH_INTERVAL;
 
         // 处理页面切换
         if (ctrlDown && canSwitch) {
             if (cPressedThisFrame && !zDown) {
                 // Ctrl+C: 下一页（仅在按键按下时触发）
                 content.currentPage = Math.min(content.currentPage + 1, content.totalPages - 1);
-                tooltipPageStates.put(itemId, content.currentPage);
-                keyState.lastSwitchTime = currentTime;
+                currentPage = content.currentPage; // 更新全局页码
+                currentKeyState.lastSwitchTime = currentTime;
             } else if (zPressedThisFrame && !cDown) {
                 // Ctrl+Z: 上一页（仅在按键按下时触发）
                 content.currentPage = Math.max(content.currentPage - 1, 0);
-                tooltipPageStates.put(itemId, content.currentPage);
-                keyState.lastSwitchTime = currentTime;
+                currentPage = content.currentPage; // 更新全局页码
+                currentKeyState.lastSwitchTime = currentTime;
             }
         }
 
@@ -320,7 +298,7 @@ public class AdvancedTooltipHandler {
             if (width > leftWidth) leftWidth = width;
         }
 
-        // 限制最大宽度 (原版175 + 图标区域)
+        // 限制最大宽度
         leftWidth = Math.min(leftWidth, TOOLTIP_MAX_WIDTH);
 
         int rightWidth = font.getStringWidth(content.itemName);
@@ -477,12 +455,12 @@ public class AdvancedTooltipHandler {
 
         // 物品名称
         int itemNameColor = getItemNameColor(content.itemName);
-        font.drawStringWithShadow(" "+content.itemName, iconTextX, currentY, itemNameColor);
+        font.drawStringWithShadow(" " + content.itemName, iconTextX, currentY, itemNameColor);
         currentY += lineHeight;
 
         // 模组名称
         if (content.modName != null) {
-            font.drawStringWithShadow(TextFormatting.YELLOW +" "+ content.modName, iconTextX, currentY, 0xFFFFFF);
+            font.drawStringWithShadow(TextFormatting.YELLOW + " " + content.modName, iconTextX, currentY, 0xFFFFFF);
             currentY += lineHeight;
         }
 
