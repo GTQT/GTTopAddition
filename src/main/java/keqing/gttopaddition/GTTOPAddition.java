@@ -1,9 +1,6 @@
 package keqing.gttopaddition;
 
-import keqing.gttopaddition.blur.SimpleBlurHandler;
 import keqing.gttopaddition.integration.GTTAIntegration;
-import keqing.gttopaddition.tooltips.AdvancedTooltipHandler;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -32,8 +29,5 @@ public class GTTOPAddition {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
         GTTAIntegration.init();
-
-        MinecraftForge.EVENT_BUS.register(new SimpleBlurHandler());
-        MinecraftForge.EVENT_BUS.register(new AdvancedTooltipHandler());
     }
 }

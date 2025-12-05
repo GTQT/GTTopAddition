@@ -41,12 +41,6 @@ public class TranslationUtils {
         }
     }
 
-    public static String getTableBarNameByItemStack(ItemStack stack){
-        if(stack.getItem().getCreativeTab()==null)return  "";
-        String tabelBar= "itemGroup."+stack.getItem().getCreativeTab().tabLabel;
-        return  net.minecraft.client.resources.I18n.format(tabelBar);
-    }
-
     public static String topTranslate(String key) {
         return IProbeInfo.STARTLOC + key + IProbeInfo.ENDLOC;
     }
