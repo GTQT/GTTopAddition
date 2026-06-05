@@ -12,3 +12,6 @@ gtqt.top.i=电流:
 gtqt.top.v=电压:
 gtqt.top.pipe.energy=平均能流: §a%s EU/t §f(%s§f/%s§f) @ §a%s§f/§a%s A
 gtqt.top.pss.details=详细信息：
+gtqt.top.autoOutputItem=自动输出物品:
+gtqt.top.autoOutputFluid=自动输出流体:
+gtqt.top.pollution=污染:
